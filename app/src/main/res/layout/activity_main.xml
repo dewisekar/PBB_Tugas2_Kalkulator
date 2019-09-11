@@ -33,12 +33,12 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/field_hasil"
             android:layout_marginBottom="0dp"
+            android:gravity="end"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textAlignment="textEnd"
-            android:gravity="end"
             android:textColor="#FFFFFF"
-            android:textSize="45dp" />
+            android:textSize="30dp" />
 
         <TextView
             android:id="@+id/field_hasil"
@@ -52,7 +52,7 @@
             android:text="= "
             android:textAlignment="textEnd"
             android:textColor="#FFFFFF"
-            android:textSize="20dp" />
+            android:textSize="45dp" />
 
 
 
