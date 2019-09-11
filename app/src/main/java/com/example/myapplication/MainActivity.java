@@ -13,12 +13,12 @@ public class MainActivity extends AppCompatActivity {
     Button  button0, button1, button2, button3, button4, button5, button6, button7, button8, button9,
             buttonTambah, buttonKurang, buttonKali, buttonBagi,
             buttonKoma, buttonPlusMinus,
-            buttonBackspace, buttonClear, buttonSamaDengan;
+            buttonBackspace, buttonClear, buttonClearAll, buttonSamaDengan;
 
     TextView fieldEditText, fieldHistori, fieldHasil;
 
     Double angkaSatu, angkaDua, hasil;
-    Double angkaHasil = (double) 0;
+    Double angkaHasil = null;
     Boolean hasilAkhir = false;
     int lastPressed;
 
@@ -45,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
         buttonSamaDengan = (Button) findViewById(R.id.tombol_sama_dengan);
 
         buttonKoma = (Button) findViewById(R.id.tombol_koma);
+        buttonPlusMinus = (Button) findViewById(R.id.tombol_plus_minus);
 
         buttonBackspace = (Button) findViewById(R.id.tombol_backspace);
         buttonClear = (Button) findViewById(R.id.tombol_clear);
+        buttonClearAll = (Button) findViewById(R.id.tombol_clear_all);
 
         fieldEditText =(TextView) findViewById(R.id.field_edit_text);
         fieldHistori =(TextView) findViewById(R.id.field_histori);
@@ -57,35 +59,90 @@ public class MainActivity extends AppCompatActivity {
         button0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                fieldEditText.setText(fieldEditText.getText() + "0");
+                if(hasilAkhir==true){
+                    angkaSatu = null; angkaDua = null; angkaHasil = (double) 0; lastPressed = 0; hasilAkhir = false;
+                    fieldEditText.setText(null);
+                    fieldHasil.setText("= ");
+                    fieldHistori.setText(null);
+                    hasilAkhir=false;
+                }
+                if(fieldEditText.getText().toString().equals("0")){
+                    fieldEditText.setText("0");
+                }else{
+                    fieldEditText.setText(fieldEditText.getText() + "0");
+                }
             }
         });
 
         button1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                fieldEditText.setText(fieldEditText.getText() + "1");
+                if(hasilAkhir==true){
+                    angkaSatu = null; angkaDua = null; angkaHasil = (double) 0; lastPressed = 0; hasilAkhir = false;
+                    fieldEditText.setText(null);
+                    fieldHasil.setText("= ");
+                    fieldHistori.setText(null);
+                    hasilAkhir=false;
+                }
+                if(fieldEditText.getText().toString().equals("0")){
+                    fieldEditText.setText("1");
+                }else{
+                    fieldEditText.setText(fieldEditText.getText() + "1");
+                }
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                fieldEditText.setText(fieldEditText.getText() + "2");
+                if(hasilAkhir==true){
+                    angkaSatu = null; angkaDua = null; angkaHasil = (double) 0; lastPressed = 0; hasilAkhir = false;
+                    fieldEditText.setText(null);
+                    fieldHasil.setText("= ");
+                    fieldHistori.setText(null);
+                    hasilAkhir=false;
+                }
+                if(fieldEditText.getText().toString().equals("0")){
+                    fieldEditText.setText("2");
+                }else{
+                    fieldEditText.setText(fieldEditText.getText() + "2");
+                }
             }
         });
 
         button3.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                fieldEditText.setText(fieldEditText.getText() + "3");
+                if(hasilAkhir==true){
+                    angkaSatu = null; angkaDua = null; angkaHasil = (double) 0; lastPressed = 0; hasilAkhir = false;
+                    fieldEditText.setText(null);
+                    fieldHasil.setText("= ");
+                    fieldHistori.setText(null);
+                    hasilAkhir=false;
+                }
+                if(fieldEditText.getText().toString().equals("0")){
+                    fieldEditText.setText("3");
+                }else{
+                    fieldEditText.setText(fieldEditText.getText() + "3");
+                }
             }
         });
 
         button4.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                fieldEditText.setText(fieldEditText.getText() + "4");
+                if(hasilAkhir==true){
+                    angkaSatu = null; angkaDua = null; angkaHasil = (double) 0; lastPressed = 0; hasilAkhir = false;
+                    fieldEditText.setText(null);
+                    fieldHasil.setText("= ");
+                    fieldHistori.setText(null);
+                    hasilAkhir=false;
+                }
+                if(fieldEditText.getText().toString().equals("0")){
+                    fieldEditText.setText("4");
+                }else{
+                    fieldEditText.setText(fieldEditText.getText() + "4");
+                }
             }
         });
 
@@ -94,8 +151,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 String str = fieldEditText.getText().toString();
-                if ((str != null) && (str.length() > 0)) {
+                if (str.length() > 1) {
                     fieldEditText.setText(str.substring(0, str.length() - 1));
+                }
+                else if(str.length()==1){
+                    fieldEditText.setText("0");
                 }
             }
         });
@@ -105,8 +165,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view){
                 String str = fieldEditText.getText().toString();
                 if ((str != null) && (str.length() > 0)) {
-                    fieldEditText.setText(null);
+                    fieldEditText.setText("0");
                 }
+            }
+        });
+
+        buttonClearAll.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                angkaSatu = null; angkaDua = null; angkaHasil = (double) 0; lastPressed = 0; hasilAkhir = false;
+                fieldEditText.setText("0");
+                fieldHasil.setText("= ");
+                fieldHistori.setText(null);
             }
         });
 
@@ -124,24 +194,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonPlusMinus.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if(!fieldEditText.getText().toString().contains("-") && !fieldEditText.getText().toString().equals("0")){
+                    fieldEditText.setText("-"+fieldEditText.getText());
+                }
+                else if(fieldEditText.getText().toString().contains("-") && !fieldEditText.getText().toString().equals("0"))
+                {
+                    fieldEditText.setText(fieldEditText.getText().toString().substring(0, fieldEditText.getText().toString().length()-1));
+                }
+            }
+        });
+
         //tombol operasi
         buttonTambah.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 if(angkaSatu==null){
-                    String str = fieldEditText.getText().toString();
-                    if(str.length()==0){
-                        angkaSatu = (double) 0;
-                        fieldHistori.append("0");
-                        lastPressed =1;
+                    if(angkaHasil!=null){
+                        angkaSatu = angkaHasil;
+                        fieldHistori.setText(angkaHasil.toString());
+                        lastPressed = 1;
                     }
                     else{
-                        String nilai = fieldEditText.getText().toString().trim();
-                        angkaSatu = Double.parseDouble(nilai);
-                        fieldHistori.append(fieldEditText.getText());
-                        lastPressed=1;
+                        String str = fieldEditText.getText().toString();
+                        if(str.length()==0){
+                            angkaSatu = (double) 0;
+                            fieldHistori.append("0");
+                            lastPressed =1;
+                        }
+                        else {
+                            String nilai = fieldEditText.getText().toString().trim();
+                            angkaSatu = Double.parseDouble(nilai);
+                            fieldHistori.append(fieldEditText.getText());
+                            lastPressed = 1;
+                        }
                     }
-                    fieldEditText.setText(null);
                 }
                 else {
                     String str = fieldEditText.getText().toString();
@@ -152,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
                         angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
                         angkaSatu = angkaHasil;
                         fieldHasil.setText("= " + angkaHasil.toString());
-                        fieldEditText.setText(null);
                         lastPressed=1;
                     }
                     else{
@@ -162,11 +250,11 @@ public class MainActivity extends AppCompatActivity {
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
                         angkaSatu = angkaHasil;
                         fieldHasil.setText("= " + angkaHasil.toString());
-                        fieldEditText.setText(null);
                         lastPressed=1;
 
                     }
                 }
+                fieldEditText.setText("0");
                 hasilAkhir=false;
             }
         });
@@ -187,7 +275,6 @@ public class MainActivity extends AppCompatActivity {
                         fieldHistori.append(fieldEditText.getText());
                         lastPressed=2;
                     }
-                    fieldEditText.setText(null);
                 }
                 else {
                     String str = fieldEditText.getText().toString();
@@ -197,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
                         angkaSatu = angkaHasil;
                         fieldHasil.setText("= " + angkaHasil.toString());
-                        fieldEditText.setText(null);
                         lastPressed=2;
                     }
                     else{
@@ -207,12 +293,12 @@ public class MainActivity extends AppCompatActivity {
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
                         angkaSatu = angkaHasil;
                         fieldHasil.setText("= " + angkaHasil.toString());
-                        fieldEditText.setText(null);
                         lastPressed=2;
 
                     }
                 }
                 hasilAkhir=false;
+                fieldEditText.setText("0");
 
             }
         });
@@ -233,7 +319,6 @@ public class MainActivity extends AppCompatActivity {
                         fieldHistori.append(fieldEditText.getText());
                         lastPressed=3;
                     }
-                    fieldEditText.setText(null);
                 }
                 else {
                     String str = fieldEditText.getText().toString();
@@ -243,7 +328,6 @@ public class MainActivity extends AppCompatActivity {
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
                         angkaSatu = angkaHasil;
                         fieldHasil.setText("= " + angkaHasil.toString());
-                        fieldEditText.setText(null);
                         lastPressed=3;
                     }
                     else{
@@ -253,10 +337,10 @@ public class MainActivity extends AppCompatActivity {
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
                         angkaSatu = angkaHasil;
                         fieldHasil.setText("= " + angkaHasil.toString());
-                        fieldEditText.setText(null);
                         lastPressed=3;
                     }
                 }
+                fieldEditText.setText("0");
                 hasilAkhir=false;
 
             }
@@ -278,7 +362,6 @@ public class MainActivity extends AppCompatActivity {
                         fieldHistori.append(fieldEditText.getText());
                         lastPressed=4;
                     }
-                    fieldEditText.setText(null);
                 }
                 else {
                     String str = fieldEditText.getText().toString();
@@ -288,7 +371,6 @@ public class MainActivity extends AppCompatActivity {
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
                         angkaSatu = angkaHasil;
                         fieldHasil.setText("= " + angkaHasil.toString());
-                        fieldEditText.setText(null);
                         lastPressed=4;
                     }
                     else{
@@ -298,12 +380,11 @@ public class MainActivity extends AppCompatActivity {
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
                         angkaSatu = angkaHasil;
                         fieldHasil.setText("= " + angkaHasil.toString());
-                        fieldEditText.setText(null);
                         lastPressed=4;
                     }
                 }
                 hasilAkhir=false;
-
+                fieldEditText.setText("0");
             }
         });
 
@@ -315,11 +396,13 @@ public class MainActivity extends AppCompatActivity {
                     if(str.length()==0){
                         fieldHistori.append("= 0");
                         fieldHasil.append("0");
+                        angkaHasil = Double.parseDouble(fieldEditText.getText().toString().trim());
                     }
                     else{
                         String nilai = fieldEditText.getText().toString().trim();
                         fieldHistori.append("=" + fieldEditText.getText());
                         fieldHasil.append(fieldEditText.getText());
+                        angkaHasil = Double.parseDouble(fieldEditText.getText().toString().trim());
                     }
                     fieldEditText.setText(null);
                 }
@@ -329,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
                         angkaDua = (double) 0;
                         fieldHistori.append("\n" + getLastPressed(lastPressed) + ' ' + 0);
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
-                        angkaSatu = angkaHasil;
+                        angkaSatu = null;
                         fieldHasil.setText("= " + angkaHasil.toString());
                         fieldEditText.setText(null);
                     }
@@ -338,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
                         fieldHistori.append("\n" + getLastPressed(lastPressed) + ' ' + fieldEditText.getText());
                         angkaDua = Double.parseDouble(nilai);
                         angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
-                        angkaSatu = angkaHasil;
+                        angkaSatu = null;
                         fieldHasil.setText("= " + angkaHasil.toString());
                         fieldEditText.setText(null);
                     }
