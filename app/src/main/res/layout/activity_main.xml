@@ -6,6 +6,59 @@
     android:background="#05061A" >
 
     <RelativeLayout
+        android:id="@+id/layout_textfield"
+        android:layout_width="match_parent"
+        android:layout_height="311dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/layout_tombol_angka"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:id="@+id/field_histori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/field_edit_text"
+            android:layout_marginBottom="0dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#FFFFFF"
+            android:textAlignment="textEnd"
+            android:gravity="end"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:id="@+id/field_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/field_hasil"
+            android:layout_marginBottom="0dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:gravity="end"
+            android:textColor="#FFFFFF"
+            android:textSize="45dp" />
+
+        <TextView
+            android:id="@+id/field_hasil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:gravity="end"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="= "
+            android:textAlignment="textEnd"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/layout_tombol_angka"
         android:layout_width="318dp"
         android:layout_height="wrap_content"
@@ -198,7 +251,7 @@
             android:textSize="35sp" />
 
         <Button
-            android:id="@+id/tombol_titik"
+            android:id="@+id/tombol_koma"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_below="@+id/tombol_tiga"
@@ -290,4 +343,5 @@
             android:textSize="50dp" />
 
     </RelativeLayout>
+
 </RelativeLayout>

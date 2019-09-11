@@ -3,12 +3,182 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button  button0, button1, button2, button3, button4, button5, button6, button7, button8, button9,
+            buttonTambah, buttonKurang, buttonKali, buttonBagi,
+            buttonKoma, buttonPlusMinus,
+            buttonBackspace, buttonClear, buttonSamaDengan;
+
+    TextView fieldEditText, fieldHistori, fieldHasil;
+
+    Double angkaSatu, angkaDua, angkaHasil;
+    Boolean hasilAkhir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        button0 = (Button) findViewById(R.id.tombol_nol);
+        button1 = (Button) findViewById(R.id.tombol_satu);
+        button2 = (Button) findViewById(R.id.tombol_dua);
+        button3 = (Button) findViewById(R.id.tombol_tiga);
+        button4 = (Button) findViewById(R.id.tombol_empat);
+        button5 = (Button) findViewById(R.id.tombol_lima);
+        button6 = (Button) findViewById(R.id.tombol_enam);
+        button7 = (Button) findViewById(R.id.tombol_tujuh);
+        button8 = (Button) findViewById(R.id.tombol_delapan);
+        button9 = (Button) findViewById(R.id.tombol_sembilan);
+
+        buttonTambah = (Button) findViewById(R.id.tombol_tambah);
+        buttonKurang = (Button) findViewById(R.id.tombol_kurang);
+        buttonKali = (Button) findViewById(R.id.tombol_kali);
+        buttonBagi = (Button) findViewById(R.id.tombol_bagi);
+        buttonSamaDengan = (Button) findViewById(R.id.tombol_sama_dengan);
+
+        buttonKoma = (Button) findViewById(R.id.tombol_koma);
+
+        buttonBackspace = (Button) findViewById(R.id.tombol_backspace);
+        buttonClear = (Button) findViewById(R.id.tombol_clear);
+
+        fieldEditText =(TextView) findViewById(R.id.field_edit_text);
+        fieldHistori =(TextView) findViewById(R.id.field_histori);
+        fieldHasil =(TextView) findViewById(R.id.field_hasil);
+
+        // tombol angka
+        button0.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                fieldEditText.setText(fieldEditText.getText() + "0");
+            }
+        });
+
+        button1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                fieldEditText.setText(fieldEditText.getText() + "1");
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                fieldEditText.setText(fieldEditText.getText() + "2");
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                fieldEditText.setText(fieldEditText.getText() + "3");
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                fieldEditText.setText(fieldEditText.getText() + "4");
+            }
+        });
+
+        //tombol hapus
+        buttonBackspace.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                String str = fieldEditText.getText().toString();
+                if ((str != null) && (str.length() > 0)) {
+                    fieldEditText.setText(str.substring(0, str.length() - 1));
+                }
+            }
+        });
+
+        buttonClear.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                String str = fieldEditText.getText().toString();
+                if ((str != null) && (str.length() > 0)) {
+                    fieldEditText.setText(null);
+                }
+            }
+        });
+
+        //tombol plus minus, koma
+        buttonKoma.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                String str = fieldEditText.getText().toString();
+                if (!str.contains(".")) {
+                    fieldEditText.setText(fieldEditText.getText() + ".");
+                }
+                if(str.length()==0){
+                    fieldEditText.setText("0.");
+                }
+            }
+        });
+
+        //tombol operasi
+        buttonTambah.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if(angkaSatu==null){
+                    String str = fieldEditText.getText().toString();
+                    if(str.length()==0){
+                        angkaSatu = (double) 0;
+                        fieldHistori.append("0");
+                    }
+                    else{
+                        String nilai = fieldEditText.getText().toString().trim();
+                        angkaSatu = Double.parseDouble(nilai);
+                        fieldHistori.append(fieldEditText.getText());
+                    }
+                    fieldEditText.setText(null);
+                }
+                else {
+                    String str = fieldEditText.getText().toString();
+                    if(str.length()==0){
+                        angkaDua = (double) 0;
+                        fieldHistori.append("\n+ " + 0);
+                        angkaHasil = angkaSatu + angkaDua;
+                        angkaSatu = angkaHasil;
+                        fieldHasil.setText(angkaHasil.toString());
+                        fieldEditText.setText(null);
+                    }
+                    else{
+                        String nilai = fieldEditText.getText().toString().trim();
+                        angkaDua = Double.parseDouble(nilai);
+                        fieldHistori.append("\n+ " + fieldEditText.getText());
+                        angkaHasil = angkaSatu + angkaDua;
+                        angkaSatu = angkaHasil;
+                        fieldHasil.setText(angkaHasil.toString());
+                        fieldEditText.setText(null);
+
+                    }
+                }
+
+            }
+        });
+
+        buttonSamaDengan.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                String str = fieldHistori.getText().toString();
+
+                if(str.length()==0){
+                    fieldHistori.append("= " + fieldEditText.getText());
+                }
+                else{
+                    fieldHistori.append("\n= " + fieldEditText.getText());
+                }
+                fieldEditText.setText(null);
+                hasilAkhir = true;
+            }
+        });
+
     }
 }
