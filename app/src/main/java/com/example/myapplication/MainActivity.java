@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     Double angkaSatu, angkaDua, hasil;
     Double angkaHasil = (double) 0;
-    Boolean hasilAkhir;
+    Boolean hasilAkhir = false;
     int lastPressed;
 
     @Override
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
-
+                hasilAkhir=false;
             }
         });
 
@@ -212,6 +212,97 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
+                hasilAkhir=false;
+
+            }
+        });
+
+        buttonKali.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if(angkaSatu==null){
+                    String str = fieldEditText.getText().toString();
+                    if(str.length()==0){
+                        angkaSatu = (double) 0;
+                        fieldHistori.append("0");
+                        lastPressed=3;
+                    }
+                    else{
+                        String nilai = fieldEditText.getText().toString().trim();
+                        angkaSatu = Double.parseDouble(nilai);
+                        fieldHistori.append(fieldEditText.getText());
+                        lastPressed=3;
+                    }
+                    fieldEditText.setText(null);
+                }
+                else {
+                    String str = fieldEditText.getText().toString();
+                    if(str.length()==0){
+                        angkaDua = (double) 0;
+                        fieldHistori.append("\n" + getLastPressed(lastPressed) + ' ' + 0);
+                        angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
+                        angkaSatu = angkaHasil;
+                        fieldHasil.setText("= " + angkaHasil.toString());
+                        fieldEditText.setText(null);
+                        lastPressed=3;
+                    }
+                    else{
+                        String nilai = fieldEditText.getText().toString().trim();
+                        fieldHistori.append("\n" + getLastPressed(lastPressed) + ' ' + fieldEditText.getText());
+                        angkaDua = Double.parseDouble(nilai);
+                        angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
+                        angkaSatu = angkaHasil;
+                        fieldHasil.setText("= " + angkaHasil.toString());
+                        fieldEditText.setText(null);
+                        lastPressed=3;
+                    }
+                }
+                hasilAkhir=false;
+
+            }
+        });
+
+        buttonBagi.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if(angkaSatu==null){
+                    String str = fieldEditText.getText().toString();
+                    if(str.length()==0){
+                        angkaSatu = (double) 0;
+                        fieldHistori.append("0");
+                        lastPressed=4;
+                    }
+                    else{
+                        String nilai = fieldEditText.getText().toString().trim();
+                        angkaSatu = Double.parseDouble(nilai);
+                        fieldHistori.append(fieldEditText.getText());
+                        lastPressed=4;
+                    }
+                    fieldEditText.setText(null);
+                }
+                else {
+                    String str = fieldEditText.getText().toString();
+                    if(str.length()==0){
+                        angkaDua = (double) 0;
+                        fieldHistori.append("\n" + getLastPressed(lastPressed) + ' ' + 0);
+                        angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
+                        angkaSatu = angkaHasil;
+                        fieldHasil.setText("= " + angkaHasil.toString());
+                        fieldEditText.setText(null);
+                        lastPressed=4;
+                    }
+                    else{
+                        String nilai = fieldEditText.getText().toString().trim();
+                        fieldHistori.append("\n" + getLastPressed(lastPressed) + ' ' + fieldEditText.getText());
+                        angkaDua = Double.parseDouble(nilai);
+                        angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
+                        angkaSatu = angkaHasil;
+                        fieldHasil.setText("= " + angkaHasil.toString());
+                        fieldEditText.setText(null);
+                        lastPressed=4;
+                    }
+                }
+                hasilAkhir=false;
 
             }
         });
@@ -219,15 +310,39 @@ public class MainActivity extends AppCompatActivity {
         buttonSamaDengan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                String str = fieldHistori.getText().toString();
-
-                if(str.length()==0){
-                    fieldHistori.append("= " + fieldEditText.getText());
+                if(angkaSatu==null && hasilAkhir==false){
+                    String str = fieldEditText.getText().toString();
+                    if(str.length()==0){
+                        fieldHistori.append("= 0");
+                        fieldHasil.append("0");
+                    }
+                    else{
+                        String nilai = fieldEditText.getText().toString().trim();
+                        fieldHistori.append("=" + fieldEditText.getText());
+                        fieldHasil.append(fieldEditText.getText());
+                    }
+                    fieldEditText.setText(null);
                 }
-                else{
-                    fieldHistori.append("\n= " + fieldEditText.getText());
+                else if(angkaSatu!= null && hasilAkhir==false){
+                    String str = fieldEditText.getText().toString();
+                    if(str.length()==0){
+                        angkaDua = (double) 0;
+                        fieldHistori.append("\n" + getLastPressed(lastPressed) + ' ' + 0);
+                        angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
+                        angkaSatu = angkaHasil;
+                        fieldHasil.setText("= " + angkaHasil.toString());
+                        fieldEditText.setText(null);
+                    }
+                    else{
+                        String nilai = fieldEditText.getText().toString().trim();
+                        fieldHistori.append("\n" + getLastPressed(lastPressed) + ' ' + fieldEditText.getText());
+                        angkaDua = Double.parseDouble(nilai);
+                        angkaHasil = angkaHasil = hitung(lastPressed, angkaSatu, angkaDua);
+                        angkaSatu = angkaHasil;
+                        fieldHasil.setText("= " + angkaHasil.toString());
+                        fieldEditText.setText(null);
+                    }
                 }
-                fieldEditText.setText(null);
                 hasilAkhir = true;
             }
         });
@@ -247,9 +362,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(params==4){
             hasil = params_1 / params_2;
-        }
-        else{
-
         }
         return hasil;
     }
